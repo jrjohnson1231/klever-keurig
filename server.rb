@@ -7,7 +7,7 @@ set :sockets, []
 
 get '/' do
   if !request.websocket?
-    EM.next_tick { settings.sockets.each{|s| s.send('Got a message') } }
+    EM.next_tick { settings.sockets.each{|s| s.send(params[:message] || 'Got a message') } }
     return 'Hello, world!'
   else
     request.websocket do |ws|
